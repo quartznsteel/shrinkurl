@@ -1,0 +1,26 @@
+services:
+  shrinkurlnow:
+    image: shrinkurlnow
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./usr/src/shrinkurlnow
+      - ./usr/src/shrinkurlnow/static:/static
+  
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=urldata
+    ports:
+      - '5432:5432'
+
+  
